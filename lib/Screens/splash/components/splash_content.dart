@@ -14,6 +14,7 @@ class SplashContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Spacer(),
@@ -32,8 +33,8 @@ class SplashContent extends StatelessWidget {
         Spacer(flex: 2),
         Image.asset(
           image,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+          height: getProportionateScreenHeight(200),
+          width: getProportionateScreenWidth(180),
         ),
       ],
     );

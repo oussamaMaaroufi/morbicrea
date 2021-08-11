@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:morbicrea/Screens/sign_in/sign_in_screen.dart';
+import 'package:morbicrea/Screens/splash/splash_screen.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/size_config.dart';
@@ -9,13 +10,14 @@ import 'package:morbicrea/components/size_config.dart';
 import '../components/splash_content.dart';
 
 
-class Body extends StatefulWidget {
+class  Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
+
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Tokoto, Let’s shop!",
