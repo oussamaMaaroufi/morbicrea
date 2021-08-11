@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morbicrea/Screens/home/home_screen.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/size_config.dart';
 
@@ -8,7 +9,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeConfig.screenHeight * 0.04),
+        SizedBox(height: SizeConfig.screenHeight * 0.05),
         Image.asset(
           "assets/images/done.jpg",
           height: SizeConfig.screenHeight * 0.5, //40%
@@ -28,7 +29,7 @@ class Body extends StatelessWidget {
           child: DefaultButton(
             text: "Back to home",
             press: () {
-              //Navigator.pushNamed(context, HomeScreen.routeName);
+              Navigator.pushNamed(context, HomeScreen.routeName);
             },
           ),
         ),
