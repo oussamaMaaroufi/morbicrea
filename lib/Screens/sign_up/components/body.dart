@@ -17,13 +17,14 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                //SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                Image.asset("assets/images/Logo_MorbiCrea.png",width: 200,height: 100),
                 Text("Register Account", style: headingStyle),
                 Text(
                   "Complete your details or continue \nwith social media",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: SizeConfig.screenHeight * 0.04),
                 SignUpForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(

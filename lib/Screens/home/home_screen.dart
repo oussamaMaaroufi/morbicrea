@@ -10,13 +10,13 @@ import 'category_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
-  static String routeName = "/sign_up";
+  static String routeName = "/home_screen";
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static String routeName = "/home_screen";
+
   final TextEditingController _searchControl = new TextEditingController();
   FocusNode myFocusNode;
 

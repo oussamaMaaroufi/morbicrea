@@ -17,15 +17,7 @@ class SplashContent extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        Spacer(),
-        Text(
-          "MORBICREA",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: kPrimaryColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Image.asset("assets/images/Logo_MorbiCrea.png",width: 200,height: 110),
         Text(
           text,
           textAlign: TextAlign.center,

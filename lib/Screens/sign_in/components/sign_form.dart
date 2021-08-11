@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:morbicrea/Screens/forgot_password/forgot_password_screen.dart';
-import 'package:morbicrea/Screens/login_success/login_success_screen.dart';
+import 'package:morbicrea/Screens/home/home_screen.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/custom_surfix_icon.dart';
 import 'package:morbicrea/components/form_error.dart';
@@ -78,7 +78,7 @@ class _SignFormState extends State<SignForm> {
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                Navigator.pushNamed(context, HomeScreen.routeName);
               }
             },
           ),

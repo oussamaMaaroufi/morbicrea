@@ -3,7 +3,7 @@ import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/custom_surfix_icon.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/form_error.dart';
-import 'package:morbicrea/components/no_account_text.dart';
+import 'package:morbicrea/Screens/sign_in/no_account_text.dart';
 import 'package:morbicrea/components/size_config.dart';
 
 class Body extends StatelessWidget {

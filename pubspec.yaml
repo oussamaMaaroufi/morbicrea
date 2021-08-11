@@ -75,6 +75,10 @@ flutter:
           weight: 700
         - asset: assets/fonts/muli/Muli-Light.ttf
           weight: 300
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/GILROY-EXTRABOLD.OTF
+        - asset: assets/fonts/GILROY-LIGHT.OTF
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

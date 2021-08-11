@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:morbicrea/components/no_account_text.dart';
+import 'package:morbicrea/Screens/sign_in/no_account_text.dart';
 import 'package:morbicrea/components/size_config.dart';
 import 'package:morbicrea/components/socal_card.dart';
 
@@ -17,15 +17,9 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
-                Text(
-                  "Welcome Back",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Image.asset("assets/images/Logo_MorbiCrea.png",width: 200,height: 110),
+                //SizedBox(height: SizeConfig.screenHeight * 0.04),
+
                 Text(
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
