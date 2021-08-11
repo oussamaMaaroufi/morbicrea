@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:morbicrea/Screens/sign_in/sign_in_screen.dart';
-import 'package:morbicrea/Screens/splash/splash_screen.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/size_config.dart';
@@ -20,17 +19,16 @@ class _BodyState extends State<Body> {
 
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
-      "image": "assets/images/splash_1.png"
+      "text": "Welcome to Morbicrea, Let’s learn!",
+      "image": "assets/images/s_1.jpg"
     },
     {
-      "text":
-          "We help people conect with store \naround United State of America",
-      "image": "assets/images/splash_2.png"
+      "text": "Find the best courses \nin all kind of categories",
+      "image": "assets/images/557.jpg"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
-      "image": "assets/images/splash_3.png"
+      "text": "Achieve online certifications \nJust stay at home with us",
+      "image": "assets/images/585.jpg"
     },
   ];
   @override

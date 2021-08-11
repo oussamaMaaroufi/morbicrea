@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:morbicrea/components/size_config.dart';
 
 
-const kPrimaryColor = Color(0xFFFF7643);
+const kPrimaryColor = Color(0xFFE84B45);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,

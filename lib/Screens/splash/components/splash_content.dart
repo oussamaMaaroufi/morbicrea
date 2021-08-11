@@ -19,7 +19,7 @@ class SplashContent extends StatelessWidget {
       children: <Widget>[
         Spacer(),
         Text(
-          "TOKOTO",
+          "MORBICREA",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,
@@ -33,8 +33,8 @@ class SplashContent extends StatelessWidget {
         Spacer(flex: 2),
         Image.asset(
           image,
-          height: getProportionateScreenHeight(200),
-          width: getProportionateScreenWidth(180),
+          height: getProportionateScreenHeight(295),
+          width: getProportionateScreenWidth(265),
         ),
       ],
     );
