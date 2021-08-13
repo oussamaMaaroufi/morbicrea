@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:morbicrea/Screens/home/home_screen.dart';
+import 'package:morbicrea/Screens/sign_up/sign_up_screen.dart';
 import 'package:morbicrea/Screens/splash/splash_screen.dart';
 import 'package:morbicrea/admin/ui/profile/profile_screen.dart';
 import 'package:morbicrea/components/routes.dart';
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: theme(),
       //initialRoute: SplashScreen.routeName,
       //routes: routes,
-      home: ProfileScreen(),
+     // home: ProfileScreen(),
+      home:HomeScreen() ,
 
     );
   }
