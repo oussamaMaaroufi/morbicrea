@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:morbicrea/Screens/home/home_screen.dart';
-import 'package:morbicrea/backend/services/user_service.dart';
-import 'package:morbicrea/backend/user_param.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/custom_surfix_icon.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/form_error.dart';
 import 'package:morbicrea/components/shared_preferences.dart';
 import 'package:morbicrea/components/size_config.dart';
+import 'package:morbicrea/models/user_parm.dart';
+import 'package:morbicrea/services/user_service.dart';
 
 
 
@@ -119,16 +119,11 @@ class _SignUpFormState extends State<SignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: kNamelNullError);
         }
         return null;
       },
       validator: (value) {
         if (value.isEmpty) {
-          addError(error: kNamelNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kNamelNullError);
           return "";
         }
