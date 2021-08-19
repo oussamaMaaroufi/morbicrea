@@ -1,6 +1,6 @@
 # morbicrea
 
-MorbiCrea site et appMobile
+MorbiCrea WebSite and MobileApp
 
 ## Getting Started
 
