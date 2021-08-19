@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:morbicrea/Screens/forgot_password/forgot_password_screen.dart';
 import 'package:morbicrea/Screens/home/home_screen.dart';
+import 'package:morbicrea/admin/ui/profile/profile_screen.dart';
+import 'package:morbicrea/backend/services/user_service.dart';
+import 'package:morbicrea/backend/user_param.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/custom_surfix_icon.dart';
 import 'package:morbicrea/components/form_error.dart';
 import 'package:morbicrea/components/keyboard.dart';
+import 'package:morbicrea/components/shared_preferences.dart';
 import 'package:morbicrea/components/size_config.dart';
 
 import '../../../components/default_button.dart';
 
 
 class SignForm extends StatefulWidget {
+
+  String _email;
+  String _password;
   @override
   _SignFormState createState() => _SignFormState();
 }
 
 class _SignFormState extends State<SignForm> {
-  final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  SharedPref pref = SharedPref();
+  UserService get service => GetIt.I<UserService>();
+
+
   bool remember = false;
   final List<String> errors = [];
 
@@ -73,28 +83,53 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
+            press: () async {
+
+              if (!_formKey.currentState.validate()) return ;
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, HomeScreen.routeName);
+              //print("home");
+                UserParam userP =
+                UserParam(email: widget._email, password: widget._password);
+
+                final result1 = await service.Login(userP).then((result) async {
+                  if (result.data != null) {
+                    pref.addUserEmail(result.data.email);
+                    pref.addUserName(result.data.name);
+                    pref.addUserId(result.data.id);
+                    pref.addUserType(result.data.type);
+                    pref.addUserCon();
+                    if (result.data.type == "student"){
+                      Navigator.pushNamed(context, HomeScreen.routeName);
+                    }
+                    else {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => ProfileScreen(),
+                        ),
+                            (route) => false,
+                      );
+                    }
+                  }
+                });
+
               }
-            },
-          ),
+            ),
         ],
       ),
     );
-  }
+    }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => widget._password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 5) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -103,7 +138,7 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 5) {
           addError(error: kShortPassError);
           return "";
         }
@@ -123,7 +158,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => widget._email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
