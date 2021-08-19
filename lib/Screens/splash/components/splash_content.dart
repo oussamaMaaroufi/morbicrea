@@ -17,6 +17,7 @@ class SplashContent extends StatelessWidget {
 
     return Column(
       children: <Widget>[
+        SizedBox(height: SizeConfig.screenHeight * 0.04),
         Image.asset("assets/images/Logo_MorbiCrea.png",width: 200,height: 110),
         Text(
           text,

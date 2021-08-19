@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:morbicrea/Screens/home/home_screen.dart';
+import 'package:morbicrea/backend/services/user_service.dart';
+import 'package:morbicrea/backend/user_param.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/custom_surfix_icon.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/form_error.dart';
+import 'package:morbicrea/components/shared_preferences.dart';
 import 'package:morbicrea/components/size_config.dart';
 
 
 
 class SignUpForm extends StatefulWidget {
+  String email;
+  String password;
+  String conform_password;
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
-  String conform_password;
+  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  UserService get service => GetIt.I<UserService>();
+  SharedPref pref = SharedPref();
   bool remember = false;
   final List<String> errors = [];
 
@@ -49,12 +56,52 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
+            press: () async {
+              if (!_formKey.currentState.validate()) return ;
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
-                //Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-              }
+                UserParam userP =
+                UserParam(email: widget.email, password: widget.password,type: "student");
+                final result = await service.SignUp(userP);
+                if(result.data != null ){
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Row(
+                              children:[
+                                Icon(Icons.info,color: Colors.blueAccent),
+                                Text('  Info. ')
+                              ]
+                          ),
+                          content: Text("You must login with your account"),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text("YES"),
+                              onPressed: () {
+                                //Put your code here which you want to execute on Yes button click.
+                                Navigator.of(context).pop();
+                                print('ok');
+                                Navigator.pushNamed(context, HomeScreen.routeName);
+                              },
+                            ),
+                          ],
+                        );
+                      }
+                  );
+                }
+                else {
+                  final text = result.errorMessage;
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: Text("Error"),
+                          content: Text(text)
+                      );
+                    },
+                  );
+                }
             },
           ),
         ],
@@ -65,20 +112,20 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildConformPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      onSaved: (newValue) => widget.conform_password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == conform_password) {
+        } else if (value.isNotEmpty && widget.password == widget.conform_password) {
           removeError(error: kMatchPassError);
         }
-        conform_password = value;
+        widget.conform_password = value;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if ((password != value)) {
+        } else if ((widget.password != value)) {
           addError(error: kMatchPassError);
           return "";
         }
@@ -98,20 +145,20 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => widget.password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 5) {
           removeError(error: kShortPassError);
         }
-        password = value;
+        widget.password = value;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 5) {
           addError(error: kShortPassError);
           return "";
         }
@@ -131,7 +178,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => widget.email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);

@@ -20,7 +20,8 @@ final headingStyle = TextStyle(
   color: Colors.black,
   height: 1.5,
 );
-
+const BASE_URL = "https://morbicrea.herokuapp.com/";
+const headers = {"Content-Type": "application/json"};
 const defaultDuration = Duration(milliseconds: 250);
 
 // Form Error

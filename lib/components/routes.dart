@@ -6,12 +6,15 @@ import 'package:morbicrea/Screens/home/home_screen.dart';
 import 'package:morbicrea/Screens/sign_in/sign_in_screen.dart';
 import 'package:morbicrea/Screens/sign_up/sign_up_screen.dart';
 import 'package:morbicrea/Screens/splash/splash_screen.dart';
+import 'package:morbicrea/Screens/welcome/welcome.dart';
 
 
 // We use name route
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
+
   SplashScreen.routeName: (context) => SplashScreen(),
+  Welcome.routeName: (context) => Welcome(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),

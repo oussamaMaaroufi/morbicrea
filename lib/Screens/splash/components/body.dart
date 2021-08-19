@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:morbicrea/Screens/sign_in/sign_in_screen.dart';
+import 'package:morbicrea/Screens/welcome/welcome.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/size_config.dart';
@@ -33,12 +34,21 @@ class _BodyState extends State<Body> {
   ];
   @override
   Widget build(BuildContext context) {
+
+    var currentWidth = MediaQuery.of(context).size.width;
+    var extraLargeScreenGrid = currentWidth > 1536;
+    var largeScreenGrid = currentWidth > 1366;
+    var smallScreenGrid = currentWidth > 1201;
+    var tabScreenGrid = currentWidth > 769;
+
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Expanded(
+            Container(
+              child: Expanded(
               flex: 3,
               child: PageView.builder(
                 onPageChanged: (value) {
@@ -53,34 +63,38 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        splashData.length,
-                        (index) => buildDot(index: index),
+
+            ),
+            Container(
+              child: Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(20)),
+                  child: Column(
+                    children: <Widget>[
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          splashData.length,
+                              (index) => buildDot(index: index),
+                        ),
                       ),
-                    ),
-                    Spacer(flex: 3),
-                    DefaultButton(
-                      text: "Continue",
-                      press: () {
-                        print(SignInScreen.routeName  );
-                        Navigator.pushNamed(context, SignInScreen.routeName);
-                      },
-                    ),
-                    Spacer(),
-                  ],
+                      Spacer(flex: 3),
+                      DefaultButton(
+                        text: "Continue",
+                        press: () {
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                        },
+                      ),
+                      Spacer(),
+                    ],
+                  ),
                 ),
               ),
             ),
+
           ],
         ),
       ),

@@ -2,34 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:morbicrea/Screens/forgot_password/forgot_password_screen.dart';
 import 'package:morbicrea/Screens/home/home_screen.dart';
+import 'package:morbicrea/admin/ui/profile/profile_screen.dart';
+import 'package:morbicrea/backend/services/user_service.dart';
+import 'package:morbicrea/backend/user_param.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/custom_surfix_icon.dart';
 import 'package:morbicrea/components/form_error.dart';
 import 'package:morbicrea/components/keyboard.dart';
+import 'package:morbicrea/components/shared_preferences.dart';
 import 'package:morbicrea/components/size_config.dart';
-import 'package:morbicrea/models/user_parm.dart';
-import 'package:morbicrea/services/user_service.dart';
-import 'package:morbicrea/shared_preferences.dart';
 
 import '../../../components/default_button.dart';
 
 
 class SignForm extends StatefulWidget {
+
+  String _email;
+  String _password;
   @override
   _SignFormState createState() => _SignFormState();
-
 }
 
 class _SignFormState extends State<SignForm> {
-  final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
-  bool remember = false;
-  final List<String> errors = [];
-
+  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  SharedPref pref = SharedPref();
   UserService get service => GetIt.I<UserService>();
 
-  SharedPref pref = SharedPref();
+
+  bool remember = false;
+  final List<String> errors = [];
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -83,116 +84,52 @@ class _SignFormState extends State<SignForm> {
           DefaultButton(
             text: "Continue",
             press: () async {
-              if (_formKey.currentState.validate()) {
+
+              if (!_formKey.currentState.validate()) return ;
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
-       // begin
+                KeyboardUtil.hideKeyboard(context);
+              //print("home");
+                UserParam userP =
+                UserParam(email: widget._email, password: widget._password);
 
-                  UserParam userP =
-                  UserParam(email: email, password: password);
-                  print(userP.email);
-                  final result1 =
-                      await service.Login(userP).then((result) async {
-                    if (result.data != null) {
-                      print("result.data");
-                      print(result.data);
-                      pref.addUserEmail(result.data.email);
-                      pref.addUserName(result.data.name);
-                      pref.addUserType(result.data.type);
-                      pref.addUserId(result.data.id);
-                      pref.addUserCode(result.data.code);
-                      pref.addUserPhone(result.data.phone);
-                      pref.addUserScore(result.data.score);
-                      pref.addHasOrtho(result.data.hasOrtho);
-                      print("result.data.hasOrtho");
-                      print(result.data.hasOrtho);
-                      pref.addUserCon();
+                final result1 = await service.Login(userP).then((result) async {
+                  if (result.data != null) {
+                    pref.addUserEmail(result.data.email);
+                    pref.addUserName(result.data.name);
+                    pref.addUserId(result.data.id);
+                    pref.addUserType(result.data.type);
+                    pref.addUserCon();
+                    if (result.data.type == "student"){
+                      Navigator.pushNamed(context, HomeScreen.routeName);
+                    }
+                    else {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => HomeScreen(),
+                          builder: (BuildContext context) => ProfileScreen(),
                         ),
                             (route) => false,
                       );
-                      /*
-                      if (result.data. == "patient") {
-                        if (result.data.hasOrtho == "true") {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => HomeScreen(),
-                            ),
-                                (route) => false,
-                          );
-                        } else {
-                          print('gggggggggggggggggggggg');
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => null(),
-                            ),
-                                (route) => false,
-                          );
-                        }
-                      } else {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => null(),
-                          ),
-                              (route) => false,
-                        );
-                      }
-                      */
                     }
+                  }
+                });
 
-                    String
-                    text= result.errer ? (result.errorMessage ?? " An errer 1") : 'you are connected';
-                    if (result.errer == true) {
-                      text = "Address or password incorrect";
-                    } else {
-                      print("hi getting stutter progress");
-                      //   await stutterservice.getStutterProgress(result.data.id);
-                      text = 'you are connected';
-                    }
-
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                            title: Row(children: [
-                              Icon(Icons.info, color: Colors.blueAccent),
-                              Text(result.errer == true
-                                  ? '  Erorr. '
-                                  : '  Welcome.  ')
-                            ]),
-                            content: Text(text));
-                      },
-                    );
-                  });
-
-
-
-
-// end
-                KeyboardUtil.hideKeyboard(context);
-             //   Navigator.pushNamed(context, HomeScreen.routeName);
               }
-            },
-          ),
+            ),
         ],
       ),
     );
-  }
+    }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => widget._password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 5) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -201,7 +138,7 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 1) {
+        } else if (value.length < 5) {
           addError(error: kShortPassError);
           return "";
         }
@@ -221,7 +158,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => widget._email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
