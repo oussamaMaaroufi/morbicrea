@@ -42,7 +42,7 @@ class Constants {
       accentColor: lightAccent,
       cursorColor: lightAccent,
       scaffoldBackgroundColor: lightBackground,
-      textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+     textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
       appBarTheme: AppBarTheme(
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
         iconTheme: IconThemeData(
