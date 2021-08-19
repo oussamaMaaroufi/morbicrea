@@ -13,6 +13,7 @@ import 'package:morbicrea/components/size_config.dart';
 
 
 class SignUpForm extends StatefulWidget {
+  String name;
   String email;
   String password;
   String conform_password;
@@ -47,6 +48,8 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          buildNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30),),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -61,7 +64,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
                 UserParam userP =
-                UserParam(email: widget.email, password: widget.password,type: "student");
+                UserParam(name: widget.name,email: widget.email, password: widget.password,type: "student");
                 final result = await service.SignUp(userP);
                 if(result.data != null ){
                   showDialog(
@@ -105,6 +108,39 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  TextFormField buildNameFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => widget.name = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Name",
+        hintText: "Enter your name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: Icon(Icons.keyboard_outlined),
       ),
     );
   }
