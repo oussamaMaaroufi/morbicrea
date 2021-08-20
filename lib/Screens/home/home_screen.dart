@@ -5,18 +5,21 @@ import 'package:flutter/rendering.dart';
 import 'package:morbicrea/Screens/home/widgets/card_courses.dart';
 import 'package:morbicrea/Screens/home/widgets/header.dart';
 import 'package:morbicrea/components/const.dart';
+import 'package:morbicrea/components/shared_preferences.dart';
+import 'package:morbicrea/main.dart';
 
 import 'category_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home_screen";
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  SharedPref _prefs = SharedPref();
   final TextEditingController _searchControl = new TextEditingController();
   FocusNode myFocusNode;
 
@@ -59,6 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   onPressed: () {
                     debugPrint("Menu pressed");
+                    _prefs.removeValues();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyApp()
+                        ),
+                            (router) => false
+                    );
+
                   },
                 ),
               ),

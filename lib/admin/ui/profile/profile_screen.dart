@@ -7,6 +7,7 @@ import 'package:morbicrea/admin/utils/theme.dart';
 
 
 class ProfileScreen extends StatelessWidget {
+  static String routeName = "/profile_Screen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +15,8 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0.0,
         //App Bar Back Button
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+          },
           icon: Icon(Icons.keyboard_backspace, color: Colors.white),
         ),
         actions: <Widget>[

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:morbicrea/Screens/splash/splash_screen.dart';
+import 'package:morbicrea/admin/ui/profile/profile_screen.dart';
 import 'package:morbicrea/components/routes.dart';
 import 'package:morbicrea/components/theme.dart';
-import 'package:morbicrea/safe_area.dart';
 import 'package:morbicrea/services/user_service.dart';
 
 
@@ -20,11 +20,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  UserService get service => GetIt.I<UserService>();
 
   @override
   Widget build(BuildContext context) {
-    service.getUsersList();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
       initialRoute: SplashScreen.routeName,
       routes: routes,
      // home: ProfileScreen(),
-
+     home:SplashScreen() ,
 
     );
   }
