@@ -4,6 +4,7 @@ import 'package:morbicrea/Screens/welcome/welcome.dart';
 import 'package:morbicrea/components/constants.dart';
 import 'package:morbicrea/components/default_button.dart';
 import 'package:morbicrea/components/size_config.dart';
+import 'package:morbicrea/safe_area.dart';
 
 
 // This is the best practice
@@ -38,11 +39,13 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
 
     var currentWidth = MediaQuery.of(context).size.width;
-
-
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
+    return Scaffold(
+      body: ResponsiveSafeArea(
+        builder: (context, size){
+          return Container(
+            alignment: Alignment.topCenter,
+        width: size.width / 2,
+        height: size.height-100,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
@@ -96,8 +99,11 @@ class _BodyState extends State<Body> {
 
           ],
         ),
+          );
+          },
       ),
     );
+
   }
 
   AnimatedContainer buildDot({int index}) {

@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:morbicrea/Screens/splash/splash_screen.dart';
 import 'package:morbicrea/components/routes.dart';
 import 'package:morbicrea/components/theme.dart';
+import 'package:morbicrea/safe_area.dart';
 import 'package:morbicrea/services/user_service.dart';
 
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       initialRoute: SplashScreen.routeName,
       routes: routes,
      // home: ProfileScreen(),
-      home:SplashScreen() ,
+
 
     );
   }
