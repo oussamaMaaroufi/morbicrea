@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:morbicrea/backend/user_info.dart';
+import 'package:morbicrea/models/user_info.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

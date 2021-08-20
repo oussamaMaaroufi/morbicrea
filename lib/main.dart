@@ -10,6 +10,8 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => UserService());
 }
 
+
+
 void main() {
   setupLocator();
   runApp(MyApp());
