@@ -13,6 +13,8 @@ import '../components/splash_content.dart';
 class  Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
+
+
 }
 
 class _BodyState extends State<Body> {
@@ -36,10 +38,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
 
     var currentWidth = MediaQuery.of(context).size.width;
-    var extraLargeScreenGrid = currentWidth > 1536;
-    var largeScreenGrid = currentWidth > 1366;
-    var smallScreenGrid = currentWidth > 1201;
-    var tabScreenGrid = currentWidth > 769;
+
 
     return SafeArea(
       child: SizedBox(
