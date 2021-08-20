@@ -99,7 +99,11 @@ class _SignFormState extends State<SignForm> {
                     pref.addUserName(result.data.name);
                     pref.addUserId(result.data.id);
                     pref.addUserType(result.data.type);
-                    pref.addUserCon();
+                    print(remember);
+                    if (remember){
+                      pref.addUserCon();
+                    }
+
                     if (result.data.type == "student"){
                       Navigator.pushNamed(context, HomeScreen.routeName);
                     }

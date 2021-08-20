@@ -7,6 +7,7 @@ import 'package:morbicrea/Screens/sign_in/sign_in_screen.dart';
 import 'package:morbicrea/Screens/sign_up/sign_up_screen.dart';
 import 'package:morbicrea/Screens/splash/splash_screen.dart';
 import 'package:morbicrea/Screens/welcome/welcome.dart';
+import 'package:morbicrea/admin/ui/profile/profile_screen.dart';
 
 
 // We use name route
@@ -19,6 +20,7 @@ final Map<String, WidgetBuilder> routes = {
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
+  ProfileScreen.routeName:(context) => ProfileScreen(),
 
 
 };

@@ -3,7 +3,7 @@ import 'package:morbicrea/models/user_info.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPref {
+class   SharedPref {
 
   SharedPreferences _prefs ;
 
@@ -60,6 +60,7 @@ class SharedPref {
   getUserType() async {
     _prefs = await SharedPreferences.getInstance();
     String stringValue = _prefs.getString('UserType');
+    print(stringValue);
     return stringValue;
   }
 
@@ -92,9 +93,7 @@ class SharedPref {
 
    Future<bool> isConnect() async{
     _prefs = await SharedPreferences.getInstance();
-   // print("tesssssssssssssssssssssssst");
     bool con = _prefs.containsKey('con');
-    print('55555555555555');
     print(con);
     return con;
   }
