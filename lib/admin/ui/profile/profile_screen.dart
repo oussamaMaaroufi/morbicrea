@@ -75,6 +75,12 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.camera,
                     iconColor: AppTheme.iconColors[4],
                   ),
+                  ProfileCardWidget(
+                    title: 'Camara',
+                    desc: '428 photos',
+                    icon: Icons.camera,
+                    iconColor: AppTheme.iconColors[4],
+                  ),
 
                   // Add New To do Card
                   ProfileAddCardWidget(),
