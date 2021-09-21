@@ -2,6 +2,11 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:morbicrea/Screens/welcome/footer.dart';
+import 'package:morbicrea/Screens/welcome/jumbotron.dart';
+import 'package:morbicrea/Screens/welcome/side_menu.dart';
+
+import 'header.dart';
 
 class  Welcome extends StatefulWidget {
   static String routeName = "/welcome";
@@ -13,21 +18,37 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
   return Scaffold(
-    appBar: AppBar(
-      backgroundColor: Colors.black,
-      automaticallyImplyLeading: false,
-      actions: [
-        IconButton(icon: Icon( Icons.menu) ,
-            onPressed: (){},
-          color: Colors.white,
-            )
-      ],
-      leading: IconButton(
-        icon: Image.asset("assets/images/Logo_MorbiCrea.png"),
-        onPressed: (){},
+    backgroundColor: Colors.black,
+    endDrawer: ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: 300
       ),
+      child: SideMenu(),
+    ),
+    body: SingleChildScrollView(
+      child: SafeArea(
+        child: Container(
+          width: size.width,
+          constraints: BoxConstraints(
+            minHeight: size.height
           ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget> [
+              Header(),
+
+              Jumbotron(),
+
+              Footer()
+
+            ],
+          ),
+        ),
+      ),
+    ),
   );
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:morbicrea/Screens/splash/splash_screen.dart';
+import 'package:morbicrea/Screens/welcome/welcome.dart';
 import 'package:morbicrea/admin/ui/profile/profile_screen.dart';
 import 'package:morbicrea/components/routes.dart';
 import 'package:morbicrea/components/theme.dart';
@@ -28,10 +29,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
-      initialRoute: SplashScreen.routeName,
+      initialRoute: Welcome.routeName,
       routes: routes,
      // home: ProfileScreen(),
-     home:SplashScreen() ,
+
 
     );
   }

@@ -10,6 +10,7 @@ import 'package:morbicrea/components/keyboard.dart';
 import 'package:morbicrea/components/shared_preferences.dart';
 import 'package:morbicrea/components/size_config.dart';
 import 'package:morbicrea/models/user_parm.dart';
+import 'package:morbicrea/responsive.dart';
 import 'package:morbicrea/services/user_service.dart';
 
 import '../../../components/default_button.dart';
@@ -19,6 +20,7 @@ class SignForm extends StatefulWidget {
 
   String _email;
   String _password;
+
   @override
   _SignFormState createState() => _SignFormState();
 }
@@ -48,14 +50,18 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Form(
       key: _formKey,
       child: Column(
-        children: [
+        mainAxisAlignment: !isMobile(context)? MainAxisAlignment.start:MainAxisAlignment.center,
+        crossAxisAlignment: !isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
+        children: <Widget>[
+          if (isMobile(context))
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),
           Row(
             children: [
               Checkbox(
@@ -80,7 +86,7 @@ class _SignFormState extends State<SignForm> {
             ],
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: 20),
           DefaultButton(
             text: "Continue",
             press: () async {
@@ -121,6 +127,7 @@ class _SignFormState extends State<SignForm> {
 
               }
             ),
+
         ],
       ),
     );

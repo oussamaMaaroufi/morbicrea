@@ -36,42 +36,16 @@ class _BodyState extends State<Body> {
       "image": "assets/images/585.jpg"
     },
   ];
-  String UserType = "";
-  bool con = false;
-  SharedPref pref;
-  Future<bool> fetchData() =>
-      Future.delayed(Duration(microseconds: 3000), () async {
-        debugPrint('Step 2, fetch data');
-        SharedPreferences _prefs = await SharedPreferences.getInstance();
-         pref = SharedPref();
-         UserType = _prefs.getString("UserType");
-        print( _prefs.getBool("con"));
-       con =_prefs.getBool("con");
-        return true;
-      });
-
 
   @override
-  Widget   build(BuildContext context)=> FutureBuilder(
-      future: fetchData(),
-      builder: (context, snapshot) {
-
-        if(snapshot.hasData){
-
-        var currentWidth = MediaQuery
-            .of(context)
-            .size
-            .width;
-        var extraLargeScreenGrid = currentWidth > 1536;
-        var largeScreenGrid = currentWidth > 1366;
-        var smallScreenGrid = currentWidth > 1201;
-        var tabScreenGrid = currentWidth > 769;
+  Widget   build(BuildContext context){
 
         return SafeArea(
           child: SizedBox(
-            width: double.infinity,
+            //width: double.infinity,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Container(
                   child: Expanded(
@@ -112,7 +86,7 @@ class _BodyState extends State<Body> {
                           DefaultButton(
                             text: "Continue",
                             press: () {
-                              print(snapshot.data);
+                         /*     print(snapshot.data);
                               print(UserType);
                               if (con == true){
                                 print("tet1");
@@ -128,7 +102,7 @@ class _BodyState extends State<Body> {
                               } else {
                                 Navigator.pushNamed(
                                     context, SignInScreen.routeName);
-                              }
+                              }*/
                             },
                           ),
                           Spacer(),
@@ -142,27 +116,10 @@ class _BodyState extends State<Body> {
             ),
           ),
         );
-      } else {
-        // We can show the loading view until the data comes back.
-        debugPrint('Step 1, build loading widget');
-        print("test 5554");
-        return Center(
-          child: SizedBox(
-           child: CircularProgressIndicator(
-           backgroundColor: Colors.white,
-           ),
-           width: 60,
-         height: 60,
-        ),
-        // Padding(
-        //   padding: EdgeInsets.all(50 ),
-        //  child: Text('Awaiting result...'),
-        //   )
-        );
-        }
+
 
   }
-  );
+
   AnimatedContainer buildDot({int index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
